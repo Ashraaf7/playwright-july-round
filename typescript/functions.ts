@@ -16,7 +16,6 @@ function sum(number: number, y: number): number {
     return number + y;
 }
 
-
 const result = sum(10, 40);
 console.log(result); // Output: 50
 
