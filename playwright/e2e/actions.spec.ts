@@ -64,3 +64,4 @@ test('Hover TC', async ({ page }) => { //30
     await page.goto('https://the-internet.herokuapp.com/hovers');
     await page.getByRole('img', { name: 'User Avatar' }).first().hover()
 });
+
