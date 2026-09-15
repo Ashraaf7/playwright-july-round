@@ -48,3 +48,11 @@ test('by test id', async ({ page }) => {
     await page.getByTestId('login-button').click(); //sub-string case-insensitive match
 });
 
+test('by xpath and css', async ({ page }) => {
+    await page.goto('https://aa-practice-test-automation.vercel.app/index.html');
+    await page.locator('//input[@type="text"]').fill('admin') // using xpath
+    await page.locator('#inputPassword').fill('admin'); // using css selector
+    await page.locator('//button').click(); // using xpath for button
+});
+
+
