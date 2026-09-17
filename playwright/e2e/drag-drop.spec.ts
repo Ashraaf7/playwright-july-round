@@ -1,5 +1,5 @@
 import { test, chromium } from '@playwright/test';
-
+import { handleDialog } from './alerts.spec';
 
 
 test('Drag and Drop TC', async ({ page }) => {
