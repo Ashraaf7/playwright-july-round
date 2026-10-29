@@ -48,6 +48,24 @@ export default defineConfig({
   reporter: [['html'], ['json', { outputFile: 'test-results.json' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    colorScheme: 'dark',
+
+    geolocation: { longitude: 12.492507, latitude: 41.889938 },
+    permissions: ['geolocation'],
+    locale: 'ar_AE',
+    timezoneId: 'Europe/Paris',
+    acceptDownloads: true,
+    extraHTTPHeaders: {
+      'test-header': 'captcha',
+    },
+    httpCredentials: {
+      username: 'admin',
+      password: 'admin',
+    },
+    //  browserName: 'firefox',
+    ignoreHTTPSErrors: true,
+    offline: false,
+    bypassCSP: true,
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://aa-practice-test-automation.vercel.app', //testing server
     //  baseURL: 'http://localhost:5500', //local dev server
@@ -61,7 +79,12 @@ export default defineConfig({
     {
       name: 'chrome',
       use: {
-        ...devices['Desktop Chrome']
+        ...devices['Desktop Chrome'],
+        viewport: null,
+        deviceScaleFactor: undefined,
+        launchOptions: {
+          args: ['--start-maximized']
+        }
 
       },
       testIgnore: ['**/specs/ignoredTests/**'],
@@ -90,17 +113,17 @@ export default defineConfig({
 
       },
       testMatch: ['**/specs/invalid-login.spec.ts'],
-    }
+    },
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
+    {
+      name: 'edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    },
     // {
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },

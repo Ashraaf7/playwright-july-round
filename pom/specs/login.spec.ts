@@ -5,6 +5,7 @@ import loginData from '../test-data/login-data.json';
 
 let loginPage: LoginPage;
 
+//test.use({ baseURL: 'https://prod-automation.vercel.app' });
 test('User can login with valid credentials', async ({ page }) => {
     loginPage = new LoginPage(page);
     await loginPage.navigateToLoginPage();
