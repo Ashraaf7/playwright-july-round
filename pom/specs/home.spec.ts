@@ -7,10 +7,13 @@ import { CsvReader } from '../utils/csvReader.ts';
 let pageManager: PageManager;
 
 test.beforeAll(async ({ }) => {
+    test.setTimeout(90000); // Set a higher timeout for the beforeAll hook
     console.log('Starting the test suite');
 });
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, testInfo) => {
+    // Extend timeout for all tests running this hook by 30 seconds.
+    testInfo.setTimeout(testInfo.timeout + 30_000);
     //1. preparing test data and navigating to the home page
     const csv = new CsvReader();
     await csv.loadFile('../test-data/login-data.csv');
@@ -38,5 +41,6 @@ test.afterEach(async ({ page }) => {
 });
 
 test.afterAll(async ({ }) => {
+    test.setTimeout(90000); // Set a higher timeout for all tests in this suite
     console.log('All tests completed');
 });

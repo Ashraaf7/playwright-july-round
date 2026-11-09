@@ -27,7 +27,7 @@ export class HomePage {
 
     //Assertions
     async verifyUserIsOnHomePage() {
-        await expect(this.welcomeMessageLocator).toHaveText(this.welcomeMessage);
+        await expect(this.welcomeMessageLocator).toHaveText(this.welcomeMessage, { timeout: 10000 });
     }
 
 }

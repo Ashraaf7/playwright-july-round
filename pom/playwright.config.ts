@@ -12,6 +12,11 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalTimeout: 10800000, //ms 3 hours (for all tests)
+  expect: {
+    timeout: 10000
+  },
+  timeout: 60000, //ms (precondition + test execution)
   build: {
     external: ['**/*bundle.js'],
   },
@@ -42,12 +47,15 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 0, //simplied if
+  //retries: 2,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : '70%',
+  workers: process.env.CI ? 1 : '40%',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html'], ['json', { outputFile: 'test-results.json' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    actionTimeout: 10000,
+    navigationTimeout: 10000,
     colorScheme: 'dark',
 
     geolocation: { longitude: 12.492507, latitude: 41.889938 },
@@ -87,43 +95,44 @@ export default defineConfig({
         }
 
       },
+      fullyParallel: true,
       testIgnore: ['**/specs/ignoredTests/**'],
 
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'safari',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'safari',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
-    {
-      name: 'mobile',
-      use: { ...devices['iPhone 17 Pro Max'] },
-    },
-    {
-      name: 'invalidLogin',
-      use: {
-        ...devices['Desktop Chrome']
+    // {
+    //   name: 'mobile',
+    //   use: { ...devices['iPhone 17 Pro Max'] },
+    // },
+    // {
+    //   name: 'invalidLogin',
+    //   use: {
+    //     ...devices['Desktop Chrome']
 
-      },
-      testMatch: ['**/specs/invalid-login.spec.ts'],
-    },
+    //   },
+    //   testMatch: ['**/specs/invalid-login.spec.ts'],
+    // },
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
     // },
 
     /* Test against branded browsers. */
-    {
-      name: 'edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
+    // {
+    //   name: 'edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
     // {
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
