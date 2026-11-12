@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, chromium } from '@playwright/test';
 import { PageManager } from '../pages/page-manager.ts';
 import homeData from '../test-data/home-data.ts';
 import loginData from '../test-data/login-data.json';
@@ -12,6 +12,9 @@ test.beforeAll(async ({ }) => {
 });
 
 test.beforeEach(async ({ page }, testInfo) => {
+    // const browser = await chromium.launch(); //os browser process
+    // const context = await browser.newContext(); //new incognito context
+    // const page = await context.newPage();
     // Extend timeout for all tests running this hook by 30 seconds.
     testInfo.setTimeout(testInfo.timeout + 30_000);
     //1. preparing test data and navigating to the home page
@@ -22,14 +25,25 @@ test.beforeEach(async ({ page }, testInfo) => {
     //  await pageManager.getLoginPage().login(loginData.validCase.username, loginData.validCase.password);
     await pageManager.getLoginPage().login(csv.getDataByRowAndColumn(0, 'username')!, csv.getDataByRowAndColumn(0, 'password')!);
     //  await pageManager.getLoginPage().login(homeData.loginData.username, homeData.loginData.password);
+    //await page.close();
 });
 
-test('Verify that the home page is accessible after login', async ({ page }) => {
+test('Verify that the home page is accessible after login', {
+    annotation: {
+        type: 'story',
+        description: 'AH-250'
+    }
+}, async ({ page }) => {
     await pageManager.getHomePage().verifyUserIsOnHomePage();
 });
 
 
-test('Verify that the user can logout from the home page', async ({ page }) => {
+test('Verify that the user can logout from the home page', {
+    annotation: {
+        type: 'story',
+        description: 'AH-250'
+    }
+}, async ({ page }) => {
     await pageManager.getHomePage().clickLogoutButton();
     await pageManager.getLoginPage().verifyUserIsOnLoginPage();
 });

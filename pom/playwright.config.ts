@@ -115,14 +115,14 @@ export default defineConfig({
     //   name: 'mobile',
     //   use: { ...devices['iPhone 17 Pro Max'] },
     // },
-    // {
-    //   name: 'invalidLogin',
-    //   use: {
-    //     ...devices['Desktop Chrome']
+    {
+      name: 'invalidLogin',
+      use: {
+        ...devices['Desktop Chrome']
 
-    //   },
-    //   testMatch: ['**/specs/invalid-login.spec.ts'],
-    // },
+      },
+      testMatch: ['**/specs/invalid-login.spec.ts'],
+    },
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },

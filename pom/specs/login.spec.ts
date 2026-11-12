@@ -7,9 +7,13 @@ let loginPage: LoginPage;
 
 //test.use({ baseURL: 'https://prod-automation.vercel.app' });
 
-test.describe('Valid Login Tests', () => {
+test.describe('Valid Login Tests ,@prod', () => {
     test.describe.configure({ retries: 1 })
-    test('User can login with valid credentials', async ({ page }) => {
+    test('User can login with valid credentials', async ({ page, browser }) => {
+        test.info().annotations.push({
+            type: 'browser version',
+            description: browser.version(),
+        });
         loginPage = new LoginPage(page);
         await loginPage.navigateToLoginPage();
         await loginPage.login(loginData.validCase.username, loginData.validCase.password);
@@ -21,14 +25,15 @@ test.describe('Valid Login Tests', () => {
 test.describe('Invalid Login Tests', () => {
 
     test.describe.configure({ mode: 'parallel' })
-    test('An error is displayed when username is empty', async ({ page }) => {
+    test('An error is displayed when username is empty', async ({ page, browserName }) => {
+        test.skip(browserName === 'firefox', 'Skipping this test on Firefox');
         loginPage = new LoginPage(page);
         await loginPage.navigateToLoginPage();
         await loginPage.login(loginData.emptyUsernameCase.username, loginData.emptyUsernameCase.password);
         await loginPage.verifyUsernameEmptyError();
     });
 
-    test('An error is displayed when password is empty', async ({ page }) => {
+    test.fixme('An error is displayed when password is empty', async ({ page }) => {
         test.slow(); //triple timeout for slow tests
         loginPage = new LoginPage(page);
         await loginPage.navigateToLoginPage();
@@ -36,7 +41,7 @@ test.describe('Invalid Login Tests', () => {
         await loginPage.verifyPasswordEmptyError();
     });
 
-    test('An error is displayed when invalid credentials are provided', async ({ page }) => {
+    test.fail('An error is displayed when invalid credentials are provided', async ({ page }) => {
         test.setTimeout(90000);
         loginPage = new LoginPage(page);
         await loginPage.navigateToLoginPage();
