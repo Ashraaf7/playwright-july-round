@@ -30,13 +30,31 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'on',
+    storageState: 'storageState.json',
+    headless: true,
   },
+  // globalSetup: require.resolve('./utils/global-setup.ts'),
+  // globalTeardown: require.resolve('./utils/global-teardown.ts'),
+
 
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/setup/global-setup.spec.ts',
+      teardown: 'teardown',
+    },
+    {
+      name: 'teardown',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/setup/global-teardown.spec.ts',
+    },
+    {
       name: 'chrome',
       use: { ...devices['Desktop Chrome'] },
+      //  dependencies: ['setup']
     },
 
     // {
