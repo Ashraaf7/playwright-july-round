@@ -1,0 +1,46 @@
+{
+    "toBeCreated": {
+        "name": "Apple Iphone 18 pro max",
+        "data": {
+            "year": 2026,
+            "price": 3000,
+            "CPU model": "Apple",
+            "Hard disk size": "1 TB"
+        }
+    },
+    "toBeGet": {
+        "productId": 1,
+        "expectedName": "Google Pixel 6 Pro"
+    },
+    "toBeUpdated": {
+        "productId": "ff808181a09d98f701a1f5304116754f",
+        "updateData": {
+            "id": "ff808181a09d98f701a1f5304116754f",
+            "name": "Lenovo LOQ Updated",
+            "updatedAt": 1795116385712,
+            "data": {
+                "year": 2026,
+                "price": 80000.0,
+                "CPU model": "Intel",
+                "Hard disk size": "2 T"
+            }
+        }
+    },
+    "toBeUpdatedPartial": {
+        "productId": "ff808181a09d98f701a1f5304116754f",
+        "updateData": {
+            "data": {
+                "price": 85000.0
+            }
+        }
+    },
+    "toBeDeleted": {
+        "name": "Apple Iphone 18 pro max deleted",
+        "data": {
+            "year": 2026,
+            "price": 3000,
+            "CPU model": "Apple",
+            "Hard disk size": "1 TB"
+        }
+    }
+}
